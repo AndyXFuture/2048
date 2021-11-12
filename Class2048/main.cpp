@@ -5,55 +5,45 @@
 using namespace std;
 
 
-void showBoard(int* map);		//��ʾ����
+void showBoard(int* map);		//显示棋盘
 
 int main(void) {
-	srand((unsigned)time(NULL));	//�õ�ǰʱ����Ϊ���������
-	GAME2048 game;		//������Ϸ����
-	game.init();		//��Ϸ��ʼ��
-	char control;		//���ڶ�ȡWASD
-	int* p;				//����������ָ��
+	srand((unsigned)time(NULL));	//用当前时间作为随机数种子
+	GAME2048 game;		//创建游戏对象
+	game.init();		//游戏初始化
+	char control;		//用于读取WASD
+	int* p;				//用来存棋盘指针
 	p = game.getBoard();
 
 	while (1) {
-		system("cls");			//����
-		showBoard(p);			//��ʾ����
-		control = _getch();		//��ȡ����
+		system("cls");			//清屏
+		showBoard(p);			//显示棋盘
+		control = _getch();		//获取操作
 
 		switch (control) {
-		case 'H':				//��
+		case 'H':				//上
 			game.moveUp();
-			if (game.comparePre() == 0) {	//�ƶ���Ч��ʼ��һ�غ�
-				game.addRandom();
-			}
 			//printf("Up!\n");
 			break;
-		case 'P':				//��
+		case 'P':				//下
 			game.moveDown();
-			if (game.comparePre() == 0) {
-				game.addRandom();
-			}
 			//printf("Down!\n");
 			break;
-		case 'M':				//��
+		case 'M':				//左
 			game.moveRight();
-			if (game.comparePre() == 0) {
-				game.addRandom();
-			}
 			//printf("Right!\n");
 			break;
-		case 'K':				//��
+		case 'K':				//右
 			game.moveLeft();
-			if (game.comparePre() == 0) {
-				game.addRandom();
-			}
 			//printf("Left!\n");
 			break;
 		default:
 			continue;
 		}
 		
-
+		if (game.comparePre() == 0) {	//移动有效则开始下一回合
+			game.addRandom();
+		}
 
 		if (game.Judge() == 1) {
 			printf("you win!\n");
@@ -66,31 +56,31 @@ int main(void) {
 			return 2;
 		}
 
+
+
 	}
 
 	return 3;
 }
 
 void showBoard(int* map) {
-	//��ʾ��Ϸ����
-	int i = 0;
-
-	cout << "��WASD���ٿ�,����һ�����ֵ���64ʱ����Ϸ�ɹ�" << endl;
-	cout << "------------------------------" << endl;
-	cout << "ح     ح     ح     ح     ح" << endl;
-	printf("ح%3d  ح%3d  ح%3d  ح%3d  ح\n", map[0], map[1], map[2], map[3]);
-	cout << "ح     ح     ح     ح     ح" << endl;
-	cout << "------------------------------" << endl;
-	cout << "ح     ح     ح     ح     ح" << endl;
-	printf("ح%3d  ح%3d  ح%3d  ح%3d  ح\n", map[4], map[5], map[6], map[7]);
-	cout << "ح     ح     ح     ح     ح" << endl;
-	cout << "------------------------------" << endl;
-	cout << "ح     ح     ح     ح     ح" << endl;
-	printf("ح%3d  ح%3d  ح%3d  ح%3d  ح\n", map[8], map[9], map[10], map[11]);
-	cout << "ح     ح     ح     ح     ح" << endl;
-	cout << "------------------------------" << endl;
-	cout << "ح     ح     ح     ح     ح" << endl;
-	printf("ح%3d  ح%3d  ح%3d  ح%3d  ح\n", map[12], map[13], map[14], map[15]);
-	cout << "ح     ح     ح     ح     ح" << endl;
-	cout << "------------------------------" << endl;
+	//显示游戏进度
+	cout << "用上下左右键来操控,当有一个数字等于64时，游戏成功" << endl;
+	cout << "     ------------------------------" << endl;
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	printf("     丨%3d  丨%3d  丨%3d  丨%3d  丨\n", map[0], map[1], map[2], map[3]);
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	cout << "     ------------------------------" << endl;
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	printf("     丨%3d  丨%3d  丨%3d  丨%3d  丨\n", map[4], map[5], map[6], map[7]);
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	cout << "     ------------------------------" << endl;
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	printf("     丨%3d  丨%3d  丨%3d  丨%3d  丨\n", map[8], map[9], map[10], map[11]);
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	cout << "     ------------------------------" << endl;
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	printf("     丨%3d  丨%3d  丨%3d  丨%3d  丨\n", map[12], map[13], map[14], map[15]);
+	cout << "     丨     丨     丨     丨     丨" << endl;
+	cout << "     ------------------------------" << endl;
 }
